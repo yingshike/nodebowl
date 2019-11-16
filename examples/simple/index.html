@@ -1,0 +1,19 @@
+<script src="../../dist/nodebowl.js"></script>
+<script>
+  const { fs, run } = window.nodebowl;
+  debugger
+  fs.writeFileSync('/foo.js', `
+    module.exports = 1;
+  `);
+
+  fs.writeFileSync('/index.js', `
+    const num = require('./foo');
+    console.log(num);
+
+    const fs = require('fs');
+    const str = fs.readFileSync('/foo.js', 'utf8');
+    console.log(str);
+  `);
+
+  run('/index.js');
+</script>
